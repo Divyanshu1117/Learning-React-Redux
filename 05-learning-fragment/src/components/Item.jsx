@@ -1,14 +1,22 @@
 import PropTypes from 'prop-types';
 import styles from './Item.module.css';
 
-const Item = ({ foodItem }) => {
-    return <li className={`${styles['kg-item']} list-group-item`}>
-        <span className={styles['kg-span']}>{foodItem}</span>
-    </li>;
-};
+const Item = ({ foodItem, bought, handleBuyButton }) => {
+    return (
+        <li className={`${styles['kg-item']} list-group-item ${bought && 'active'}`}>
+            <span className={styles['kg-span']}>{foodItem}</span>
+            <button
+                className={`${styles.button} btn btn-info`}
+                onClick={handleBuyButton}>
+                Buy</button>
+        </li>
+    );
+}
 
 Item.propTypes = {
     foodItem: PropTypes.string.isRequired,
+    bought: PropTypes.bool.isRequired,
+    handleBuyButton: PropTypes.func.isRequired,
 };
 
 export default Item;
