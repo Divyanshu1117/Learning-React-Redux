@@ -1,8 +1,8 @@
 function Hello() {
-    // let myName = 'Prashant';
+    // let myName = 'Divyanshu';
     let number = 456;
     let fullName = () => {
-        return 'Prashant Jain';
+        return 'Divyanshu';
     }
     return <p>
         MessageNo: {number} I am your master {fullName()}

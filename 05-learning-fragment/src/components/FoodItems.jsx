@@ -13,8 +13,10 @@ const FoodItems = ({ items }) => {
 
     return (
         <ul className="list-group">
-            {items.map((item) => (
-                <Item key={item} foodItem={item}
+            {items.map((item, index) => (
+                <Item
+                    key={index}
+                    foodItem={item}
                     bought={activeItems.includes(item)}
                     handleBuyButton={() => onBuyButton(item)}
                 />

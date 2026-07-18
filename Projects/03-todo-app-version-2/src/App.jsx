@@ -6,18 +6,23 @@ import './App.css';
 
 function App() {
 
-  const todoItems = [{
-    name: 'Buy Milk',
-    date: '15/07/2026'
-  },
-  {
-    name: 'Go to Gym',
-    date: '15/07/2026'
-  },
-  {
-    name: 'Go to Market',
-    date: '15/07/2026'
-  }]
+  const todoItems = [
+    {
+      id: 1,
+      name: "Buy Milk",
+      dueDate: "15/07/2026",
+    },
+    {
+      id: 2,
+      name: "Go to Gym",
+      dueDate: "15/07/2026",
+    },
+    {
+      id: 3,
+      name: "Go to Market",
+      dueDate: "15/07/2026",
+    },
+  ];
 
   return (
     <center className='todo-container'>
