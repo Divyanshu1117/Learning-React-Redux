@@ -24,7 +24,7 @@ const Post = ({ post }) => {
                 {post.tags.map((tag) => (
                     <span className="badge text-bg-primary hashtag" key={tag}>{tag}</span>))}
                 <div className="alert alert-success reactions" role="alert">
-                    This post has been reacted by {post.reactions} people.
+                    This post has received {post.reactions.likes} likes and {post.reactions.dislikes} dislikes.
                 </div>
             </div>
         </div>
@@ -36,8 +36,11 @@ Post.propTypes = {
         id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         title: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
-        reactions: PropTypes.number.isRequired,
         tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+        reactions: PropTypes.shape({
+            likes: PropTypes.number.isRequired,
+            dislikes: PropTypes.number.isRequired,
+        }).isRequired,
     }).isRequired,
 };
 
