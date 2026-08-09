@@ -16,11 +16,23 @@ function App() {
 
     <PostListProvider>
       <div className="app-container">
-        <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab}></Sidebar>
+        <Sidebar
+          selectedTab={selectedTab}
+          setSelectedTab={setSelectedTab}
+        />
+
         <div className="content">
-          <Header></Header>
-          {selectedTab === 'Home' ? (<PostList></PostList>) : (<CreatePost></CreatePost>)}
-          <Footer></Footer>
+          <Header />
+
+          <div style={{ display: selectedTab === "Home" ? "block" : "none" }}>
+            <PostList />
+          </div>
+
+          <div style={{ display: selectedTab === "Home" ? "none" : "block" }}>
+            <CreatePost />
+          </div>
+
+          <Footer />
         </div>
       </div>
     </PostListProvider>

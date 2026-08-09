@@ -1,5 +1,6 @@
 import { createContext, useReducer } from "react";
 import PropTypes from "prop-types";
+import { useMemo } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const PostList = createContext({
@@ -61,6 +62,26 @@ const PostListProvider = ({ children }) => {
         });
     };
 
+    // const deletePost = useCallback(
+    //         (postId) => {
+    //             dispatchPostList({
+    //                 type: 'DELETE_POST',
+    //                 payload: {
+    //                     postId,
+    //                 },
+    //             });
+    //         },
+    //         [dispatchPostList]
+    //     );
+
+    // eslint-disable-next-line
+    const arr = [5, 2, 6, 7, 4];
+    const sortedArr = useMemo(
+        () => [...arr].sort((a, b) => a - b),
+        [arr]
+    );
+    console.log("Original Array:", arr);
+    console.log("Sorted Array:", sortedArr);
 
     return (
         <PostList.Provider value={
