@@ -21,12 +21,12 @@ const CreatePost = () => {
         const dislikes = dislikesElement.current.value;
         const tags = tagsElement.current.value.split(" ");
 
-        /*userIdElement.current.value = "";
+        userIdElement.current.value = "";
         postTitleElement.current.value = "";
         postbodyElement.current.value = "";
         likesElement.current.value = "";
         dislikesElement.current.value = "";
-        tagsElement.current.value = "";*/
+        tagsElement.current.value = "";
 
         fetch('https://dummyjson.com/posts/add', {
             method: 'POST',
@@ -42,7 +42,7 @@ const CreatePost = () => {
                 tags: tags
             })
         })
-            .then(res => res.json())
+            .then((res) => res.json())
             .then(post => addPost(post));
     };
 

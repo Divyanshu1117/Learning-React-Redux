@@ -1,10 +1,11 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import PropTypes from "prop-types";
 // import { useMemo } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const PostList = createContext({
     postList: [],
+    fetching: false,
     addPost: () => { },
     deletePost: () => { },
 });
@@ -26,6 +27,8 @@ const postListReducer = (currPostList, action) => {
 
 const PostListProvider = ({ children }) => {
     const [postList, dispatchPostList] = useReducer(postListReducer, []);
+    const [fetching, setFetching] = useState(false);
+
 
     const addPost = (post) => {
         dispatchPostList({
@@ -52,6 +55,27 @@ const PostListProvider = ({ children }) => {
         });
     };
 
+    useEffect(() => {
+        setFetching(true);
+
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        fetch('https://dummyjson.com/posts', { signal })
+            .then((res) => res.json())
+            .then((data) => {
+                addInitialPosts(data.posts);
+                setFetching(false);
+            });
+
+        return () => {
+            console.log('Cleaning up UseEffect..');
+            controller.abort();
+        }
+        // eslint-disable-next-line
+    }, []);
+
+
     // const deletePost = useCallback(
     //         (postId) => {
     //             dispatchPostList({
@@ -77,8 +101,8 @@ const PostListProvider = ({ children }) => {
         <PostList.Provider value={
             {
                 postList,
+                fetching,
                 addPost,
-                addInitialPosts,
                 deletePost
             }
         }> {children}</PostList.Provider >);
