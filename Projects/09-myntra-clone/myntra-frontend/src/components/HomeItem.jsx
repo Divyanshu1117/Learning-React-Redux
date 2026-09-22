@@ -1,6 +1,14 @@
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { bagActions } from "../store/bagSlice";
 
 const HomeItem = ({ item }) => {
+  const dispatch = useDispatch();
+
+  const handleAddToBag = () => {
+    dispatch(bagActions.addToBag(item.id));
+  }
+
   return (
     <div className="item-container">
       <img
@@ -37,7 +45,7 @@ const HomeItem = ({ item }) => {
 
       <button
         className="btn-add-bag"
-        onClick={() => console.log("Added to bag:", item.id)}
+        onClick={handleAddToBag}
       >
         Add to Bag
       </button>
