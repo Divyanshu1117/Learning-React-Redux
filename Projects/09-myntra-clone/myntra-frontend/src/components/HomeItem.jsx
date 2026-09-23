@@ -1,12 +1,21 @@
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { bagActions } from "../store/bagSlice";
+import { GrAddCircle } from "react-icons/gr";
+import { AiFillDelete } from "react-icons/ai";
 
 const HomeItem = ({ item }) => {
+
   const dispatch = useDispatch();
+  const bagItems = useSelector(store => store.bag);
+  const elementFound = bagItems.indexOf(item.id) >= 0;
 
   const handleAddToBag = () => {
     dispatch(bagActions.addToBag(item.id));
+  };
+
+  const handleRemove = () => {
+    dispatch(bagActions.removeFromBag(item.id));
   }
 
   return (
@@ -43,13 +52,10 @@ const HomeItem = ({ item }) => {
         </span>
       </div>
 
-      <button
-        className="btn-add-bag"
-        onClick={handleAddToBag}
-      >
-        Add to Bag
-      </button>
-    </div>
+      {elementFound ? <button type="button" className="btn-add-bag btn btn-danger" onClick={handleRemove} > <AiFillDelete />    Remove</button> :
+        <button type="button" className="btn-add-bag btn btn-success" onClick={handleAddToBag}><GrAddCircle /> Add to Bag</button>
+      }
+    </div >
   );
 };
 

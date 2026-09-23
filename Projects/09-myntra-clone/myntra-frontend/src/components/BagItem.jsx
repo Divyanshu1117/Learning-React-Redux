@@ -1,4 +1,14 @@
+import { useDispatch } from "react-redux";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import PropTypes from "prop-types";
+import { bagActions } from "../store/bagSlice";
+
 const BagItem = ({ item }) => {
+
+    const dispatch = useDispatch();
+    const handleRemoveItem = () => {
+        dispatch(bagActions.removeFromBag(item.id));
+    }
     return (
         <div className="bag-item-container">
 
@@ -50,13 +60,27 @@ const BagItem = ({ item }) => {
             </div>
 
             <div className="remove-from-cart"
-                onClick={() => console.log("Item removed from cart.")}
+                onClick={handleRemoveItem}
             >
-                X
+                <RiDeleteBin5Fill />
             </div>
 
         </div>
     );
+};
+
+BagItem.propTypes = {
+    item: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        image: PropTypes.string.isRequired,
+        company: PropTypes.string.isRequired,
+        item_name: PropTypes.string.isRequired,
+        current_price: PropTypes.number.isRequired,
+        original_price: PropTypes.number.isRequired,
+        discount_percentage: PropTypes.number.isRequired,
+        return_period: PropTypes.number.isRequired,
+        delivery_date: PropTypes.string.isRequired,
+    }).isRequired,
 };
 
 export default BagItem;

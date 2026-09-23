@@ -14,12 +14,31 @@ const FetchItems = () => {
       const signal = controller.signal;
 
       dispatch(fetchStatusActions.markFetchingStarted());
+
+      /*
       fetch("http://localhost:8080/items", { signal })
          .then((res) => res.json())
          .then(({ items }) => {
             dispatch(fetchStatusActions.markFetchDone());
             dispatch(fetchStatusActions.markFetchingFinished());
             dispatch(itemsActions.addInitialItems(items[0]));
+         });
+      */
+
+      fetch("http://localhost:8080/items", { signal })
+         .then((res) => res.json())
+         .then(({ items }) => {
+            dispatch(fetchStatusActions.markFetchDone());
+            dispatch(fetchStatusActions.markFetchingFinished());
+            dispatch(itemsActions.addInitialItems(items[0]));
+         })
+         .catch((error) => {
+            if (error.name === "AbortError") {
+               return;
+            }
+
+            console.error("Failed to fetch items:", error);
+            dispatch(fetchStatusActions.markFetchingFinished());
          });
 
       return () => {
